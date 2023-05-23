@@ -92,9 +92,8 @@ fun JournalTheme(
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
-
-        darkTheme -> DarkColors
-        else -> LightColors
+        darkTheme -> LightColors
+        else -> DarkColors
     }
     val view = LocalView.current
     if (!view.isInEditMode) {

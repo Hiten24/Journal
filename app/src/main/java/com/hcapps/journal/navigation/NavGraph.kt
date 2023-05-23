@@ -7,11 +7,15 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.hcapps.journal.presentation.screens.auth.AuthenticationScreen
 import com.hcapps.journal.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 
 @Composable
-fun NavGraph(startDestination: String, navController: NavHostController) {
-    NavHost(navController = navController, startDestination = startDestination) {
+fun SetupNavGraph(startDestination: String, navController: NavHostController) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination
+    ) {
         authenticationRoute()
         homeRoute()
         writeRoute()
@@ -20,19 +24,21 @@ fun NavGraph(startDestination: String, navController: NavHostController) {
 
 fun NavGraphBuilder.authenticationRoute() {
     composable(route = Screen.Authentication.route) {
+        AuthenticationScreen(loadingState = false) {
 
+        }
     }
 }
 
 fun NavGraphBuilder.homeRoute() {
-    composable(route = Screen.Authentication.route) {
+    composable(route = Screen.Home.route) {
 
     }
 }
 
 fun NavGraphBuilder.writeRoute() {
     composable(
-        route = Screen.Authentication.route,
+        route = Screen.Write.route,
         arguments = listOf(navArgument(name = WRITE_SCREEN_ARGUMENT_KEY) {
             type = NavType.StringType
             nullable = true
