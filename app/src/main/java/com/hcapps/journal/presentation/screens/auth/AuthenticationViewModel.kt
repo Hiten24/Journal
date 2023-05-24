@@ -12,6 +12,9 @@ import kotlinx.coroutines.withContext
 
 class AuthenticationViewModel: ViewModel() {
 
+    var authenticated = mutableStateOf(false)
+        private set
+
     var loadingState = mutableStateOf(false)
         private set
 
@@ -21,7 +24,7 @@ class AuthenticationViewModel: ViewModel() {
 
     fun signInWithMongoAtlas(
         tokenId: String,
-        onSuccess: (Boolean) -> Unit,
+        onSuccess: () -> Unit,
         onError: (Exception) -> Unit
     ) = viewModelScope.launch {
         try {
@@ -32,11 +35,17 @@ class AuthenticationViewModel: ViewModel() {
                 ).loggedIn
             }
             withContext(Dispatchers.Main) {
-                onSuccess.invoke(result)
+                if (result) {
+                    onSuccess()
+//                    delay(600)
+                    authenticated.value = true
+                } else {
+                    onError(java.lang.Exception("User is not logged in"))
+                }
             }
         } catch (e: Exception) {
             withContext(Dispatchers.Main) {
-                onError.invoke(e)
+                onError(e)
             }
         }
     }

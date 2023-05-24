@@ -22,35 +22,34 @@ fun SetupNavGraph(startDestination: String, navController: NavHostController) {
         navController = navController,
         startDestination = startDestination
     ) {
-        authenticationRoute()
+        authenticationRoute(navigateToHome = {
+            navController.popBackStack()
+            navController.navigate(Screen.Home.route)
+        })
         homeRoute()
         writeRoute()
     }
 }
 
-fun NavGraphBuilder.authenticationRoute() {
+fun NavGraphBuilder.authenticationRoute(navigateToHome: () -> Unit) {
     composable(route = Screen.Authentication.route) {
 
         val viewModel: AuthenticationViewModel = viewModel()
+        val authenticated by viewModel.authenticated
         val loadingState by viewModel.loadingState
         val oneTapState = rememberOneTapSignInState()
         val context = LocalContext.current
 
         AuthenticationScreen(
+            authenticated = authenticated,
             loadingState = loadingState,
             oneTapSignInState = oneTapState,
             onTokenIdReceived = { tokenId ->
                 viewModel.signInWithMongoAtlas(
                     tokenId,
                     onSuccess = {
-                        if (it) {
-                            Toast.makeText(
-                                context,
-                                "Successfully Authenticated!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            viewModel.setLoading(false)
-                        }
+                        Toast.makeText(context, "Successfully Authenticated!", Toast.LENGTH_SHORT).show()
+                        viewModel.setLoading(false)
                     },
                     onError = { exception ->
                         Toast.makeText(context, exception.message, Toast.LENGTH_SHORT).show()
@@ -59,11 +58,13 @@ fun NavGraphBuilder.authenticationRoute() {
             },
             onDialogDismissed = { message ->
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                viewModel.setLoading(false)
             },
             onButtonClicked = {
                 oneTapState.open()
                 viewModel.setLoading(true)
-            }
+            },
+            navigateToHome = navigateToHome
         )
 
     }

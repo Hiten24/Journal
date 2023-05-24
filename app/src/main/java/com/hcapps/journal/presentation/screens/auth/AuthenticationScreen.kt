@@ -3,6 +3,7 @@ package com.hcapps.journal.presentation.screens.auth
 import android.annotation.SuppressLint
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import com.hcapps.journal.util.Constants.CLIENT_ID
 import com.stevdzasan.onetap.OneTapSignInState
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
@@ -12,11 +13,13 @@ import com.stevdzasan.onetap.OneTapSignInWithGoogle
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AuthenticationScreen(
+    authenticated: Boolean,
     loadingState: Boolean,
     oneTapSignInState: OneTapSignInState,
     onButtonClicked: () -> Unit,
     onTokenIdReceived: (String) -> Unit,
-    onDialogDismissed: (String) -> Unit
+    onDialogDismissed: (String) -> Unit,
+    navigateToHome: () -> Unit
 ) {
 
     Scaffold {
@@ -36,5 +39,11 @@ fun AuthenticationScreen(
             onDialogDismissed.invoke(message)
         }
     )
+
+    LaunchedEffect(key1 = authenticated) {
+        if (authenticated) {
+            navigateToHome()
+        }
+    }
 
 }
