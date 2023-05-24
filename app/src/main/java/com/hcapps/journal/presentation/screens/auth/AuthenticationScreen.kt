@@ -1,9 +1,14 @@
 package com.hcapps.journal.presentation.screens.auth
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Modifier
 import com.hcapps.journal.util.Constants.CLIENT_ID
 import com.stevdzasan.onetap.OneTapSignInState
 import com.stevdzasan.onetap.OneTapSignInWithGoogle
@@ -22,7 +27,12 @@ fun AuthenticationScreen(
     navigateToHome: () -> Unit
 ) {
 
-    Scaffold {
+    Scaffold(
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.surface)
+            .statusBarsPadding()
+            .navigationBarsPadding()
+    ) {
         AuthenticationContent(
             loadingState = loadingState,
             onButtonClicked = onButtonClicked
