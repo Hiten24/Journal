@@ -46,7 +46,7 @@ fun HomeScreen(
                 }
             }
         ) {
-
+            HomeContent(journals = mapOf(), onClick = {})
         }
     }
 }
