@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,10 +18,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.hcapps.journal.data.repository.MongoDB
 import com.hcapps.journal.presentation.components.DisplayAlterDialog
 import com.hcapps.journal.presentation.screens.auth.AuthenticationScreen
 import com.hcapps.journal.presentation.screens.auth.AuthenticationViewModel
 import com.hcapps.journal.presentation.screens.home.HomeScreen
+import com.hcapps.journal.presentation.screens.home.HomeViewModel
 import com.hcapps.journal.util.Constants.APP_ID
 import com.hcapps.journal.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.stevdzasan.onetap.rememberOneTapSignInState
@@ -96,10 +99,13 @@ fun NavGraphBuilder.homeRoute(
     navigateToAuth: () -> Unit
 ) {
     composable(route = Screen.Home.route) {
+        val viewModel: HomeViewModel = viewModel()
+        val journals by viewModel.journals
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         var signOutDialogOpened by remember { mutableStateOf(false) }
         val scope = rememberCoroutineScope()
         HomeScreen(
+            journals = journals,
             onMenuClicked = {
                 scope.launch {
                     drawerState.open()
@@ -111,6 +117,10 @@ fun NavGraphBuilder.homeRoute(
                 signOutDialogOpened = true
             }
         )
+
+        LaunchedEffect(key1 = Unit) {
+            MongoDB.configureTheRealm()
+        }
 
         DisplayAlterDialog(
             title = "Sign Out",

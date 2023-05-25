@@ -1,13 +1,13 @@
 package com.hcapps.journal.model
 
-import androidx.room.PrimaryKey
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.RealmInstant
 import io.realm.kotlin.types.RealmList
 import io.realm.kotlin.types.RealmObject
+import io.realm.kotlin.types.annotations.PrimaryKey
 import org.mongodb.kbson.ObjectId
 
-class Journal: RealmObject {
+open class Journal: RealmObject {
     @PrimaryKey
     var _id: ObjectId = ObjectId()
     var ownerId: String = ""
