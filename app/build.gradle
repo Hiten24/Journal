@@ -41,6 +41,9 @@ android {
     buildFeatures {
         compose true
     }
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+    }
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.0'
     }
