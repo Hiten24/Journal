@@ -18,12 +18,16 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.rememberPagerState
 import com.hcapps.journal.data.repository.MongoDB
+import com.hcapps.journal.model.Journal
 import com.hcapps.journal.presentation.components.DisplayAlterDialog
 import com.hcapps.journal.presentation.screens.auth.AuthenticationScreen
 import com.hcapps.journal.presentation.screens.auth.AuthenticationViewModel
 import com.hcapps.journal.presentation.screens.home.HomeScreen
 import com.hcapps.journal.presentation.screens.home.HomeViewModel
+import com.hcapps.journal.presentation.screens.write.WriteScreen
 import com.hcapps.journal.util.Constants.APP_ID
 import com.hcapps.journal.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.stevdzasan.onetap.rememberOneTapSignInState
@@ -51,7 +55,11 @@ fun SetupNavGraph(startDestination: String, navController: NavHostController) {
                 navController.navigate(Screen.Authentication.route)
             }
         )
-        writeRoute()
+        writeRoute(
+            onBackPressed = {
+                navController.popBackStack()
+            }
+        )
     }
 }
 
@@ -140,7 +148,8 @@ fun NavGraphBuilder.homeRoute(
     }
 }
 
-fun NavGraphBuilder.writeRoute() {
+@OptIn(ExperimentalPagerApi::class)
+fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
     composable(
         route = Screen.Write.route,
         arguments = listOf(navArgument(name = WRITE_SCREEN_ARGUMENT_KEY) {
@@ -149,6 +158,13 @@ fun NavGraphBuilder.writeRoute() {
             defaultValue = null
         })
     ) {
+        val pagerState = rememberPagerState()
 
+        WriteScreen(
+            selectedJournal = null,
+            pagerState = pagerState,
+            onDeletedConfirmed = {},
+            onBackPressed = onBackPressed
+        )
     }
 }
