@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hcapps.journal.data.repository.Journals
 import com.hcapps.journal.data.repository.MongoDB
-import com.hcapps.journal.util.RequestState
+import com.hcapps.journal.model.RequestState
 import kotlinx.coroutines.launch
 
 class HomeViewModel: ViewModel() {

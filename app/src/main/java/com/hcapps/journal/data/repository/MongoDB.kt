@@ -1,9 +1,8 @@
 package com.hcapps.journal.data.repository
 
-import androidx.room.util.query
 import com.hcapps.journal.model.Journal
 import com.hcapps.journal.util.Constants.APP_ID
-import com.hcapps.journal.util.RequestState
+import com.hcapps.journal.model.RequestState
 import com.hcapps.journal.util.toInstant
 import io.realm.kotlin.Realm
 import io.realm.kotlin.ext.query

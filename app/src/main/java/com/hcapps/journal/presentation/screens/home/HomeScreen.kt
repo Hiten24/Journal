@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.hcapps.journal.R
 import com.hcapps.journal.data.repository.Journals
-import com.hcapps.journal.util.RequestState
+import com.hcapps.journal.model.RequestState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")

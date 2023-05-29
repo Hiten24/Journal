@@ -1,5 +1,6 @@
 package com.hcapps.journal.presentation.screens.write
 
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -38,8 +39,10 @@ import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
+import com.hcapps.journal.model.GalleryState
 import com.hcapps.journal.model.Journal
 import com.hcapps.journal.model.Mood
+import com.hcapps.journal.presentation.components.GalleryUploader
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterial3Api::class)
@@ -48,11 +51,13 @@ fun WriteContent(
     uiState: UiState,
     pagerState: PagerState,
     title: String,
+    galleryState: GalleryState,
     onTitleChanged: (String) -> Unit,
     description: String,
     onDescriptionChanged: (String) -> Unit,
     paddingValues: PaddingValues,
-    onSaveClicked: (Journal) -> Unit
+    onSaveClicked: (Journal) -> Unit,
+    onImageSelect: (Uri) -> Unit
 ) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
@@ -144,6 +149,13 @@ fun WriteContent(
         }
 
         Column(verticalArrangement = Arrangement.Bottom) {
+            Spacer(modifier = Modifier.height(12.dp))
+            GalleryUploader(
+                galleryState = galleryState,
+                onAddClicked = {},
+                onImageSelect = onImageSelect,
+                onImageClicked = {}
+            )
             Spacer(modifier = Modifier.height(12.dp))
             Button(
                 modifier = Modifier

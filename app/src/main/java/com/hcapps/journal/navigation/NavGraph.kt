@@ -23,7 +23,9 @@ import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.hcapps.journal.data.repository.MongoDB
+import com.hcapps.journal.model.GalleryImage
 import com.hcapps.journal.model.Mood
+import com.hcapps.journal.model.rememberGalleryState
 import com.hcapps.journal.presentation.components.DisplayAlterDialog
 import com.hcapps.journal.presentation.screens.auth.AuthenticationScreen
 import com.hcapps.journal.presentation.screens.auth.AuthenticationViewModel
@@ -167,12 +169,14 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
         val viewModel: WriteViewModel = viewModel()
         val uiState = viewModel.uiState
         val pagerState = rememberPagerState()
+        val galleryState = rememberGalleryState()
         val pageNumber by remember { derivedStateOf { pagerState.currentPage } }
         val context = LocalContext.current
 
         WriteScreen(
             uiState = uiState,
             moodName = { Mood.values()[pageNumber].name },
+            galleryState = galleryState,
             pagerState = pagerState,
             onTitleChanged = { viewModel.setTitle(title = it) },
             onDescriptionChanged = { viewModel.setDescription(description = it) },
@@ -194,6 +198,11 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
                     onError = { msg ->
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
                     }
+                )
+            },
+            onImageSelect = {
+                galleryState.addImage(
+                    GalleryImage(image = it, remoteImagePath = "")
                 )
             }
         )

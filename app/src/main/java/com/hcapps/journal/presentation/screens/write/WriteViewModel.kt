@@ -10,7 +10,7 @@ import com.hcapps.journal.data.repository.MongoDB
 import com.hcapps.journal.model.Journal
 import com.hcapps.journal.model.Mood
 import com.hcapps.journal.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
-import com.hcapps.journal.util.RequestState
+import com.hcapps.journal.model.RequestState
 import com.hcapps.journal.util.toRealmInstant
 import io.realm.kotlin.types.ObjectId
 import io.realm.kotlin.types.RealmInstant
