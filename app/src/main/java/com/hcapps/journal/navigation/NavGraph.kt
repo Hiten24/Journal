@@ -1,10 +1,12 @@
 package com.hcapps.journal.navigation
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,13 +23,14 @@ import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.hcapps.journal.data.repository.MongoDB
-import com.hcapps.journal.model.Journal
+import com.hcapps.journal.model.Mood
 import com.hcapps.journal.presentation.components.DisplayAlterDialog
 import com.hcapps.journal.presentation.screens.auth.AuthenticationScreen
 import com.hcapps.journal.presentation.screens.auth.AuthenticationViewModel
 import com.hcapps.journal.presentation.screens.home.HomeScreen
 import com.hcapps.journal.presentation.screens.home.HomeViewModel
 import com.hcapps.journal.presentation.screens.write.WriteScreen
+import com.hcapps.journal.presentation.screens.write.WriteViewModel
 import com.hcapps.journal.util.Constants.APP_ID
 import com.hcapps.journal.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.stevdzasan.onetap.rememberOneTapSignInState
@@ -49,6 +52,9 @@ fun SetupNavGraph(startDestination: String, navController: NavHostController) {
         homeRoute(
             navigateToWrite = {
                 navController.navigate(Screen.Write.route)
+            },
+            navigateToWriteWithArgs = {
+                navController.navigate(Screen.Write.passJournalId(it))
             },
             navigateToAuth = {
                 navController.popBackStack()
@@ -104,7 +110,8 @@ fun NavGraphBuilder.authenticationRoute(navigateToHome: () -> Unit) {
 
 fun NavGraphBuilder.homeRoute(
     navigateToWrite: () -> Unit,
-    navigateToAuth: () -> Unit
+    navigateToWriteWithArgs: (String) -> Unit,
+    navigateToAuth: () -> Unit,
 ) {
     composable(route = Screen.Home.route) {
         val viewModel: HomeViewModel = viewModel()
@@ -115,15 +122,14 @@ fun NavGraphBuilder.homeRoute(
         HomeScreen(
             journals = journals,
             onMenuClicked = {
-                scope.launch {
-                    drawerState.open()
-                }
+                scope.launch { drawerState.open() }
             },
             navigateToWrite = navigateToWrite,
             drawerState = drawerState,
             onSignOutClicked = {
                 signOutDialogOpened = true
-            }
+            },
+            navigateToWriteWithArgs = navigateToWriteWithArgs
         )
 
         LaunchedEffect(key1 = Unit) {
@@ -158,11 +164,17 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
             defaultValue = null
         })
     ) {
+        val viewModel: WriteViewModel = viewModel()
+        val uiState = viewModel.uiState
         val pagerState = rememberPagerState()
+        val pageNumber by remember { derivedStateOf { pagerState.currentPage } }
 
         WriteScreen(
-            selectedJournal = null,
+            uiState = uiState,
+            moodName = { Mood.values()[pageNumber].name },
             pagerState = pagerState,
+            onTitleChanged = { viewModel.setTitle(title = it) },
+            onDescriptionChanged = { viewModel.setDescription(description = it) },
             onDeletedConfirmed = {},
             onBackPressed = onBackPressed
         )

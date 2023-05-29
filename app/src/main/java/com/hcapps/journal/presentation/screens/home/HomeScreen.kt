@@ -48,7 +48,8 @@ fun HomeScreen(
     drawerState: DrawerState,
     onMenuClicked: () -> Unit,
     navigateToWrite: () -> Unit,
-    onSignOutClicked: () -> Unit
+    onSignOutClicked: () -> Unit,
+    navigateToWriteWithArgs: (String) -> Unit
 ) {
     var padding by remember { mutableStateOf(PaddingValues()) }
     var scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -80,7 +81,7 @@ fun HomeScreen(
                     HomeContent(
                         paddingValues = it,
                         journals = journals.data,
-                        onClick = {}
+                        onClick = navigateToWriteWithArgs
                     )
                 }
                 is RequestState.Error -> {

@@ -2,6 +2,7 @@ package com.hcapps.journal.data.repository
 
 import com.hcapps.journal.model.Journal
 import com.hcapps.journal.util.RequestState
+import io.realm.kotlin.types.ObjectId
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
 
@@ -12,5 +13,7 @@ interface MongoRepository {
     fun configureTheRealm()
 
     fun getAllJournals(): Flow<Journals>
+
+    fun getSelectedJournal(journalId: ObjectId): RequestState<Journal>
 
 }
