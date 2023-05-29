@@ -15,6 +15,7 @@ import com.hcapps.journal.util.toRealmInstant
 import io.realm.kotlin.types.ObjectId
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.ZonedDateTime
@@ -42,7 +43,8 @@ class WriteViewModel(
     private fun fetchSelectedJournal() {
         if (uiState.selectedJournalId != null) {
             viewModelScope.launch(Dispatchers.Main) {
-                MongoDB.getSelectedJournal(journalId = io.realm.kotlin.types.ObjectId.Companion.from(uiState.selectedJournalId!!))
+                MongoDB.getSelectedJournal(journalId = ObjectId.from(uiState.selectedJournalId!!))
+                    .catch { emit(RequestState.Error(Exception("Journal is already deleted."))) }
                     .collect { journal ->
                         if (journal is RequestState.Success) {
                             setSelectedJournal(journal = journal.data)
@@ -130,6 +132,29 @@ class WriteViewModel(
         } else if (result is RequestState.Error) {
             withContext(Dispatchers.Main) {
                 onError(result.error.message.toString())
+            }
+        }
+    }
+
+    fun deleteJournal(
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (uiState.selectedJournalId != null) {
+                when (val result = MongoDB.deleteJournal(id = ObjectId.from(uiState.selectedJournalId!!))) {
+                    is RequestState.Success -> {
+                        withContext(Dispatchers.Main) {
+                            onSuccess()
+                        }
+                    }
+                    is RequestState.Error -> {
+                        withContext(Dispatchers.Main) {
+                            onError(result.error.message.toString())
+                        }
+                    }
+                    else -> {}
+                }
             }
         }
     }

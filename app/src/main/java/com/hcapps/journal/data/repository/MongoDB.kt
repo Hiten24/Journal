@@ -1,5 +1,6 @@
 package com.hcapps.journal.data.repository
 
+import androidx.room.util.query
 import com.hcapps.journal.model.Journal
 import com.hcapps.journal.util.Constants.APP_ID
 import com.hcapps.journal.util.RequestState
@@ -106,6 +107,27 @@ object MongoDB: MongoRepository {
                     RequestState.Success(data = queriedJournal)
                 } else {
                     RequestState.Error(error = Exception("Queried Journal does not exist."))
+                }
+            }
+        } else {
+            RequestState.Error(UserNotAuthenticatedException())
+        }
+    }
+
+    override suspend fun deleteJournal(id: ObjectId): RequestState<Journal> {
+        return if (user != null) {
+            realm.write {
+                val journal = query<Journal>(query = "_id == $0 AND ownerId == $1", id, user?.id)
+                    .first().find()
+                if (journal != null) {
+                    try {
+                        delete(journal)
+                        RequestState.Success(data = journal)
+                    } catch (e: Exception) {
+                        RequestState.Error(e)
+                    }
+                } else {
+                    RequestState.Error(Exception("Journal does not exist."))
                 }
             }
         } else {

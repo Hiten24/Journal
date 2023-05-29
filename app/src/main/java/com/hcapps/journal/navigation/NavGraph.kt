@@ -168,6 +168,7 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
         val uiState = viewModel.uiState
         val pagerState = rememberPagerState()
         val pageNumber by remember { derivedStateOf { pagerState.currentPage } }
+        val context = LocalContext.current
 
         WriteScreen(
             uiState = uiState,
@@ -175,7 +176,15 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
             pagerState = pagerState,
             onTitleChanged = { viewModel.setTitle(title = it) },
             onDescriptionChanged = { viewModel.setDescription(description = it) },
-            onDeletedConfirmed = {},
+            onDeletedConfirmed = { viewModel.deleteJournal(
+                onSuccess = {
+                    Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+                    onBackPressed()
+                },
+                onError = { msg ->
+                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                }
+            ) },
             onBackPressed = onBackPressed,
             onDateTimeUpdated = { viewModel.updateDateTime(zonedDateTime = it) },
             onSaveClicked = {
@@ -183,7 +192,7 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
                     journal = it.apply { mood = Mood.values()[pageNumber].name },
                     onSuccess = { onBackPressed() },
                     onError = { msg ->
-                        Log.d("NavGraph.kt", "writeRoute: $msg")
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
                     }
                 )
             }
