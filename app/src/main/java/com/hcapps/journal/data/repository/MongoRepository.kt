@@ -18,4 +18,6 @@ interface MongoRepository {
 
     suspend fun insertJournal(journal: Journal): RequestState<Journal>
 
+    suspend fun updateJournal(journal: Journal): RequestState<Journal>
+
 }

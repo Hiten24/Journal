@@ -92,6 +92,26 @@ object MongoDB: MongoRepository {
             RequestState.Error(UserNotAuthenticatedException())
         }
     }
+
+    override suspend fun updateJournal(journal: Journal): RequestState<Journal> {
+        return if (user != null) {
+            realm.write {
+                val queriedJournal = query<Journal>(query = "_id == $0", journal._id).first().find()
+                if (queriedJournal != null) {
+                    queriedJournal.title = journal.title
+                    queriedJournal.description = journal.description
+                    queriedJournal.mood = journal.mood
+                    queriedJournal.images = journal.images
+                    queriedJournal.date = journal.date
+                    RequestState.Success(data = queriedJournal)
+                } else {
+                    RequestState.Error(error = Exception("Queried Journal does not exist."))
+                }
+            }
+        } else {
+            RequestState.Error(UserNotAuthenticatedException())
+        }
+    }
 }
 
 private class UserNotAuthenticatedException: Exception("User is not Logged in.")

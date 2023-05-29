@@ -39,7 +39,7 @@ class WriteViewModel(
     private fun fetchSelectedJournal() {
         if (uiState.selectedJournalId != null) {
             viewModelScope.launch(Dispatchers.Main) {
-                MongoDB.getSelectedJournal(journalId = ObjectId.Companion.from(uiState.selectedJournalId!!))
+                MongoDB.getSelectedJournal(journalId = io.realm.kotlin.types.ObjectId.Companion.from(uiState.selectedJournalId!!))
                     .collect { journal ->
                         if (journal is RequestState.Success) {
                             setSelectedJournal(journal = journal.data)
@@ -68,21 +68,53 @@ class WriteViewModel(
         uiState = uiState.copy(mood = mood)
     }
 
-    fun insertJournal(
+    fun upsertJournal(
         journal: Journal,
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = MongoDB.insertJournal(journal = journal)
-            if (result is RequestState.Success) {
-                withContext(Dispatchers.Main) {
-                    onSuccess()
-                }
-            } else if (result is RequestState.Error) {
-                withContext(Dispatchers.Main) {
-                    onError(result.error.message.toString())
-                }
+            if (uiState.selectedJournalId != null) {
+                updateJournal(journal = journal, onSuccess = onSuccess, onError = onError)
+            } else {
+                insertJournal(journal = journal, onSuccess = onSuccess, onError = onError)
+            }
+        }
+    }
+
+    private suspend fun insertJournal(
+        journal: Journal,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val result = MongoDB.insertJournal(journal = journal)
+        if (result is RequestState.Success) {
+            withContext(Dispatchers.Main) {
+                onSuccess()
+            }
+        } else if (result is RequestState.Error) {
+            withContext(Dispatchers.Main) {
+                onError(result.error.message.toString())
+            }
+        }
+    }
+
+    private suspend fun updateJournal(
+        journal: Journal,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val result = MongoDB.updateJournal(journal = journal.apply {
+            _id = ObjectId.Companion.from(uiState.selectedJournalId!!)
+            date = uiState.selectedJournal!!.date
+        })
+        if (result is RequestState.Success) {
+            withContext(Dispatchers.Main) {
+                onSuccess()
+            }
+        } else if (result is RequestState.Error) {
+            withContext(Dispatchers.Main) {
+                onError(result.error.message.toString())
             }
         }
     }
