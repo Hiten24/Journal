@@ -11,10 +11,13 @@ import com.hcapps.journal.model.Journal
 import com.hcapps.journal.model.Mood
 import com.hcapps.journal.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.hcapps.journal.util.RequestState
+import com.hcapps.journal.util.toRealmInstant
 import io.realm.kotlin.types.ObjectId
+import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.ZonedDateTime
 
 class WriteViewModel(
     private val savedStateHandle: SavedStateHandle
@@ -64,8 +67,12 @@ class WriteViewModel(
         uiState = uiState.copy(description = description)
     }
 
-    fun setMood(mood: Mood) {
+    private fun setMood(mood: Mood) {
         uiState = uiState.copy(mood = mood)
+    }
+
+    fun updateDateTime(zonedDateTime: ZonedDateTime) {
+        uiState = uiState.copy(updatedDateTime = zonedDateTime?.toInstant()?.toRealmInstant())
     }
 
     fun upsertJournal(
@@ -87,7 +94,11 @@ class WriteViewModel(
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-        val result = MongoDB.insertJournal(journal = journal)
+        val result = MongoDB.insertJournal(journal = journal.apply {
+            if (uiState.updatedDateTime != null) {
+                date = uiState.updatedDateTime!!
+            }
+        })
         if (result is RequestState.Success) {
             withContext(Dispatchers.Main) {
                 onSuccess()
@@ -106,7 +117,11 @@ class WriteViewModel(
     ) {
         val result = MongoDB.updateJournal(journal = journal.apply {
             _id = ObjectId.Companion.from(uiState.selectedJournalId!!)
-            date = uiState.selectedJournal!!.date
+            date = if (uiState.updatedDateTime != null) {
+                uiState.updatedDateTime!!
+            } else {
+                uiState.selectedJournal!!.date
+            }
         })
         if (result is RequestState.Success) {
             withContext(Dispatchers.Main) {
@@ -126,5 +141,6 @@ data class UiState(
     val selectedJournal: Journal? = null,
     val title: String = "",
     val description: String = "",
-    val mood: Mood = Mood.Neutral
+    val mood: Mood = Mood.Neutral,
+    val updatedDateTime: RealmInstant? = null
 )

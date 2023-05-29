@@ -177,6 +177,7 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
             onDescriptionChanged = { viewModel.setDescription(description = it) },
             onDeletedConfirmed = {},
             onBackPressed = onBackPressed,
+            onDateTimeUpdated = { viewModel.updateDateTime(zonedDateTime = it) },
             onSaveClicked = {
                 viewModel.upsertJournal(
                     journal = it.apply { mood = Mood.values()[pageNumber].name },
