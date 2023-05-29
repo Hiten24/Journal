@@ -127,14 +127,15 @@ fun JournalHeader(moodName: String, time: Instant) {
             )
             Spacer(modifier = Modifier.width(7.dp))
             Text(
-                text = mood.name,
-                color = mood.containerColor,
+//                text = mood.name,
+                text = "Test Title",
+                color = mood.contentColor,
                 style = TextStyle(fontSize = MaterialTheme.typography.bodyMedium.fontSize)
             )
         }
         Text(
             text = SimpleDateFormat("hh:mm a", Locale.US).format(Date.from(time)),
-            color = mood.containerColor,
+            color = mood.contentColor,
             style = TextStyle(fontSize = MaterialTheme.typography.bodyMedium.fontSize)
         )
     }
