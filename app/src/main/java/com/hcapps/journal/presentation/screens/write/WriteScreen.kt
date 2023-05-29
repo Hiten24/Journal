@@ -19,7 +19,8 @@ fun WriteScreen(
     onTitleChanged: (String) -> Unit,
     onDescriptionChanged: (String) -> Unit,
     onDeletedConfirmed: () -> Unit,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onSaveClicked: (Journal) -> Unit
 ) {
     // Update the Mood when selecting an existing Journal
     LaunchedEffect(key1 = uiState.mood) {
@@ -36,12 +37,14 @@ fun WriteScreen(
         },
         content = {
             WriteContent(
+                uiState = uiState,
                 pagerState = pagerState,
                 title = uiState.title,
                 onTitleChanged = onTitleChanged,
                 description = uiState.description,
                 onDescriptionChanged = onDescriptionChanged,
-                paddingValues = it
+                paddingValues = it,
+                onSaveClicked = onSaveClicked
             )
         }
     )

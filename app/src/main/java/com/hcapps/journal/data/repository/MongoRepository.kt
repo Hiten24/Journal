@@ -14,6 +14,8 @@ interface MongoRepository {
 
     fun getAllJournals(): Flow<Journals>
 
-    fun getSelectedJournal(journalId: ObjectId): RequestState<Journal>
+    fun getSelectedJournal(journalId: ObjectId): Flow<RequestState<Journal>>
+
+    suspend fun insertJournal(journal: Journal): RequestState<Journal>
 
 }

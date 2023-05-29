@@ -64,13 +64,29 @@ object MongoDB: MongoRepository {
         }
     }
 
-    override fun getSelectedJournal(journalId: ObjectId): RequestState<Journal> {
+    override fun getSelectedJournal(journalId: ObjectId): Flow<RequestState<Journal>> {
         return if (user != null) {
             try {
-                val journal = realm.query<Journal>(query = "_id == $0", journalId).find().first()
-                RequestState.Success(data = journal)
+                realm.query<Journal>(query = "_id == $0", journalId).asFlow().map {
+                    RequestState.Success(data = it.list.first())
+                }
             } catch (e: Exception) {
-                RequestState.Error(e)
+                flow { emit(RequestState.Error(e)) }
+            }
+        } else {
+            flow { emit(RequestState.Error(UserNotAuthenticatedException())) }
+        }
+    }
+
+    override suspend fun insertJournal(journal: Journal): RequestState<Journal> {
+        return if (user != null) {
+            realm.write {
+                try {
+                    val addedJournal = copyToRealm(journal.apply { ownerId = user.id })
+                    RequestState.Success(data = addedJournal)
+                } catch (e: Exception) {
+                    RequestState.Error(e)
+                }
             }
         } else {
             RequestState.Error(UserNotAuthenticatedException())

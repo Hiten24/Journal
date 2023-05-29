@@ -14,6 +14,7 @@ import com.hcapps.journal.util.RequestState
 import io.realm.kotlin.types.ObjectId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class WriteViewModel(
     private val savedStateHandle: SavedStateHandle
@@ -38,15 +39,15 @@ class WriteViewModel(
     private fun fetchSelectedJournal() {
         if (uiState.selectedJournalId != null) {
             viewModelScope.launch(Dispatchers.Main) {
-                val journal = MongoDB.getSelectedJournal(
-                    journalId = ObjectId.Companion.from(uiState.selectedJournalId!!)
-                )
-                if (journal is RequestState.Success) {
-                    setSelectedJournal(journal = journal.data)
-                    setTitle(title = journal.data.title)
-                    setDescription(description = journal.data.description)
-                    setMood(mood = Mood.valueOf(journal.data.mood))
-                }
+                MongoDB.getSelectedJournal(journalId = ObjectId.Companion.from(uiState.selectedJournalId!!))
+                    .collect { journal ->
+                        if (journal is RequestState.Success) {
+                            setSelectedJournal(journal = journal.data)
+                            setTitle(title = journal.data.title)
+                            setDescription(description = journal.data.description)
+                            setMood(mood = Mood.valueOf(journal.data.mood))
+                        }
+                    }
             }
         }
     }
@@ -65,6 +66,25 @@ class WriteViewModel(
 
     fun setMood(mood: Mood) {
         uiState = uiState.copy(mood = mood)
+    }
+
+    fun insertJournal(
+        journal: Journal,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = MongoDB.insertJournal(journal = journal)
+            if (result is RequestState.Success) {
+                withContext(Dispatchers.Main) {
+                    onSuccess()
+                }
+            } else if (result is RequestState.Error) {
+                withContext(Dispatchers.Main) {
+                    onError(result.error.message.toString())
+                }
+            }
+        }
     }
 
 }
