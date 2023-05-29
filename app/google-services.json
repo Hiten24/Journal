@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "220790200313",
+    "project_id": "infinite-rope-387417",
+    "storage_bucket": "infinite-rope-387417.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220790200313:android:cb93b8be14747b1e0a4f28",
+        "android_client_info": {
+          "package_name": "com.hcapps.journal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220790200313-t40vqgmhcbi6o4alfq37905shc61unfl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg8waj1AOKFBWkG0t8cnBqIH95oL5WfkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220790200313-edkc0jfih19m96li6177pcifcendfi35.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

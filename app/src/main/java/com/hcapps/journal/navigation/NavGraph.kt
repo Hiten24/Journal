@@ -1,6 +1,5 @@
 package com.hcapps.journal.navigation
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDrawerState
@@ -84,7 +83,7 @@ fun NavGraphBuilder.authenticationRoute(navigateToHome: () -> Unit) {
             authenticated = authenticated,
             loadingState = loadingState,
             oneTapSignInState = oneTapState,
-            onTokenIdReceived = { tokenId ->
+            onSuccessfulFirebaseSignIn = { tokenId ->
                 viewModel.signInWithMongoAtlas(
                     tokenId,
                     onSuccess = {
@@ -93,8 +92,13 @@ fun NavGraphBuilder.authenticationRoute(navigateToHome: () -> Unit) {
                     },
                     onError = { exception ->
                         Toast.makeText(context, exception.message, Toast.LENGTH_SHORT).show()
+                        viewModel.setLoading(false)
                     }
                 )
+            },
+            onFailedFirebaseSignIn = {
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                viewModel.setLoading(false)
             },
             onDialogDismissed = { message ->
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

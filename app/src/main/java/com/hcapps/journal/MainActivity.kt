@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.FirebaseApp
 import com.hcapps.journal.navigation.Screen
 import com.hcapps.journal.navigation.SetupNavGraph
 import com.hcapps.journal.ui.theme.JournalTheme
@@ -16,6 +17,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 //        installSplashScreen()
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        FirebaseApp.initializeApp(this)
         setContent {
             JournalTheme {
                 val navController = rememberNavController()
