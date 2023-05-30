@@ -1,12 +1,17 @@
 package com.hcapps.journal.presentation.screens.write
 
+import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.hcapps.journal.data.repository.MongoDB
+import com.hcapps.journal.model.GalleryImage
+import com.hcapps.journal.model.GalleryState
 import com.hcapps.journal.model.Journal
 import com.hcapps.journal.model.Mood
 import com.hcapps.journal.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
@@ -24,6 +29,7 @@ class WriteViewModel(
     private val savedStateHandle: SavedStateHandle
 ): ViewModel() {
 
+    val galleryState = GalleryState()
     var uiState by mutableStateOf(UiState())
         private set
 
@@ -74,7 +80,7 @@ class WriteViewModel(
     }
 
     fun updateDateTime(zonedDateTime: ZonedDateTime) {
-        uiState = uiState.copy(updatedDateTime = zonedDateTime?.toInstant()?.toRealmInstant())
+        uiState = uiState.copy(updatedDateTime = zonedDateTime.toInstant()?.toRealmInstant())
     }
 
     fun upsertJournal(
@@ -157,6 +163,18 @@ class WriteViewModel(
                 }
             }
         }
+    }
+
+    fun addImage(image: Uri, imageType: String) {
+        val remoteImagePath = "images/${FirebaseAuth.getInstance().currentUser?.uid}/" +
+                "${image.lastPathSegment}-${System.currentTimeMillis()}.$imageType"
+        Log.d("writeViewModel", "addImage: $remoteImagePath")
+        galleryState.addImage(
+            GalleryImage(
+                image = image,
+                remoteImagePath = remoteImagePath
+            )
+        )
     }
 
 }

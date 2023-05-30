@@ -1,5 +1,6 @@
 package com.hcapps.journal.navigation
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.rememberDrawerState
@@ -22,9 +23,7 @@ import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.hcapps.journal.data.repository.MongoDB
-import com.hcapps.journal.model.GalleryImage
 import com.hcapps.journal.model.Mood
-import com.hcapps.journal.model.rememberGalleryState
 import com.hcapps.journal.presentation.components.DisplayAlterDialog
 import com.hcapps.journal.presentation.screens.auth.AuthenticationScreen
 import com.hcapps.journal.presentation.screens.auth.AuthenticationViewModel
@@ -173,7 +172,7 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
         val viewModel: WriteViewModel = viewModel()
         val uiState = viewModel.uiState
         val pagerState = rememberPagerState()
-        val galleryState = rememberGalleryState()
+        val galleryState = viewModel.galleryState
         val pageNumber by remember { derivedStateOf { pagerState.currentPage } }
         val context = LocalContext.current
 
@@ -205,9 +204,9 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
                 )
             },
             onImageSelect = {
-                galleryState.addImage(
-                    GalleryImage(image = it, remoteImagePath = "")
-                )
+                val type = context.contentResolver.getType(it)?.split("/")?.last() ?: "jpg"
+                Log.d("writeViewModel", "writeRoute: URI: $it")
+                viewModel.addImage(image = it, imageType = type)
             }
         )
     }
