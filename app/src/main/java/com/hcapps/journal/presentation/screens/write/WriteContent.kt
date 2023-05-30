@@ -43,6 +43,7 @@ import com.hcapps.journal.model.GalleryState
 import com.hcapps.journal.model.Journal
 import com.hcapps.journal.model.Mood
 import com.hcapps.journal.presentation.components.GalleryUploader
+import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalPagerApi::class, ExperimentalMaterial3Api::class)
@@ -167,6 +168,7 @@ fun WriteContent(
                             Journal().apply {
                                 this.title = uiState.title
                                 this.description = uiState.description
+                                this.images = galleryState.images.map { it.remoteImagePath }.toRealmList()
                             }
                         )
                     } else {
