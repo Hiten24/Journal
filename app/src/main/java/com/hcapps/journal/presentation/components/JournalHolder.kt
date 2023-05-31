@@ -122,7 +122,7 @@ fun JournalHolder(journal: Journal, onClick: (String) -> Unit) {
                     }
                 }
                 AnimatedVisibility(
-                    visible = galleryOpened,
+                    visible = galleryOpened && !galleryLoading,
                     enter = fadeIn() + expandVertically(
                         animationSpec = spring(
                             dampingRatio = Spring.DampingRatioMediumBouncy,
