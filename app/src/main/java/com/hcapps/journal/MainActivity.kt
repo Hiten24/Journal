@@ -12,12 +12,14 @@ import com.hcapps.journal.navigation.Screen
 import com.hcapps.journal.navigation.SetupNavGraph
 import com.hcapps.journal.ui.theme.JournalTheme
 import com.hcapps.journal.util.Constants.APP_ID
+import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     @Inject
