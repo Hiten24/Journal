@@ -3,7 +3,6 @@ package com.hcapps.journal.util
 import android.net.Uri
 import android.util.Log
 import androidx.core.net.toUri
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storageMetadata
 import com.hcapps.journal.data.database.entity.ImageToUpload

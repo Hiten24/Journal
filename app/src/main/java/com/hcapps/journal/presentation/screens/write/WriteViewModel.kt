@@ -12,16 +12,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.hcapps.journal.data.database.ImageDatabase
-import com.hcapps.journal.data.database.ImageToUploadDao
-import com.hcapps.journal.data.database.entity.ImageToUpload
 import com.hcapps.journal.data.repository.MongoDB
 import com.hcapps.journal.model.GalleryImage
 import com.hcapps.journal.model.GalleryState
 import com.hcapps.journal.model.Journal
 import com.hcapps.journal.model.Mood
-import com.hcapps.journal.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.hcapps.journal.model.RequestState
+import com.hcapps.journal.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
 import com.hcapps.journal.util.fetchImagesFromFirebase
 import com.hcapps.journal.util.toRealmInstant
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -139,7 +139,7 @@ object MongoDB: MongoRepository {
     override suspend fun deleteJournal(id: ObjectId): RequestState<Journal> {
         return if (user != null) {
             realm.write {
-                val journal = query<Journal>(query = "_id == $0 AND ownerId == $1", id, user?.id)
+                val journal = query<Journal>(query = "_id == $0 AND ownerId == $1", id, user.id)
                     .first().find()
                 if (journal != null) {
                     try {

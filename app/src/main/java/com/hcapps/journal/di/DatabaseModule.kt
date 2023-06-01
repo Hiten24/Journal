@@ -5,7 +5,6 @@ import androidx.room.Room
 import com.hcapps.journal.connectivity.NetworkConnectivityObserver
 import com.hcapps.journal.data.database.ImageDatabase
 import com.hcapps.journal.data.database.ImageToUploadDao
-import com.hcapps.journal.data.database.entity.ImageToUpload
 import com.hcapps.journal.util.Constants.IMAGES_DATABASE
 import dagger.Module
 import dagger.Provides

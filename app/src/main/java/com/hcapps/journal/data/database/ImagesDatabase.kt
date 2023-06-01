@@ -11,13 +11,3 @@ import androidx.room.RoomDatabase
 abstract class ImageDatabase: RoomDatabase() {
     abstract fun imageToUploadDao(): ImageToUploadDao
 }
-
-/*
-@Database(
-    entities = [ImageToUpload::class],
-    version = 1,
-    exportSchema = false
-)
-abstract class ImagesDatabase: RoomDatabase() {
-    abstract fun imageToUploadDao(): ImageToUploadDao
-}*/
