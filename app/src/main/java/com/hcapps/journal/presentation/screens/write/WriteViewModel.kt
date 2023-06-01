@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.hcapps.journal.data.database.ImageDatabase
 import com.hcapps.journal.data.database.ImageToUploadDao
 import com.hcapps.journal.data.database.entity.ImageToUpload
 import com.hcapps.journal.data.repository.MongoDB

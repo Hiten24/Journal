@@ -2,8 +2,9 @@ package com.hcapps.journal.di
 
 import android.content.Context
 import androidx.room.Room
+import com.hcapps.journal.data.database.ImageDatabase
 import com.hcapps.journal.data.database.ImageToUploadDao
-import com.hcapps.journal.data.database.ImagesDatabase
+import com.hcapps.journal.data.database.entity.ImageToUpload
 import com.hcapps.journal.util.Constants.IMAGES_DATABASE
 import dagger.Module
 import dagger.Provides
@@ -16,20 +17,20 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideDatabase(
         @ApplicationContext context: Context
-    ): ImagesDatabase {
+    ): ImageDatabase {
         return Room.databaseBuilder(
-            context = context,
-            klass = ImagesDatabase::class.java,
-            name = IMAGES_DATABASE
+            context,
+            ImageDatabase::class.java,
+            IMAGES_DATABASE
         ).build()
     }
 
-    @Singleton
     @Provides
-    fun provideImageToUploadDao(database: ImagesDatabase): ImageToUploadDao = database.imageToUploadDao()
+    @Singleton
+    fun provideImageToUploadDao(database: ImageDatabase): ImageToUploadDao = database.imageToUploadDao()
 
 }

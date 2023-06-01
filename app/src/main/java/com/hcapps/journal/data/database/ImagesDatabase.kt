@@ -2,8 +2,17 @@ package com.hcapps.journal.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.hcapps.journal.data.database.entity.ImageToUpload
 
+@Database(
+    entities = [ImageToUploadDao::class],
+    version = 1,
+    exportSchema = false
+)
+abstract class ImageDatabase: RoomDatabase() {
+    abstract fun imageToUploadDao(): ImageToUploadDao
+}
+
+/*
 @Database(
     entities = [ImageToUpload::class],
     version = 1,
@@ -11,4 +20,4 @@ import com.hcapps.journal.data.database.entity.ImageToUpload
 )
 abstract class ImagesDatabase: RoomDatabase() {
     abstract fun imageToUploadDao(): ImageToUploadDao
-}
+}*/

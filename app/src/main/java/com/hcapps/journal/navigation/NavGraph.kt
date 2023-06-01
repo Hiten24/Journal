@@ -208,7 +208,8 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
                 val type = context.contentResolver.getType(it)?.split("/")?.last() ?: "jpg"
                 Log.d("writeViewModel", "writeRoute: URI: $it")
                 viewModel.addImage(image = it, imageType = type)
-            }
+            },
+            onImageDeleteClicked = {}
         )
     }
 }
