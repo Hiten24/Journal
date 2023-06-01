@@ -160,6 +160,7 @@ class WriteViewModel @Inject constructor(
         })
         if (result is RequestState.Success) {
             uploadImagesToFirebase()
+            deleteImageFromFirebase()
             withContext(Dispatchers.Main) {
                 onSuccess()
             }
@@ -228,10 +229,16 @@ class WriteViewModel @Inject constructor(
         }
     }
 
-    private fun deleteImageFromFirebase(images: List<String>) {
+    private fun deleteImageFromFirebase(images: List<String>? = null) {
         val storage = FirebaseStorage.getInstance().reference
-        images.forEach { remotePath ->
-            storage.child(remotePath).delete()
+        if (images != null) {
+            images.forEach { remotePath ->
+                storage.child(remotePath).delete()
+            }
+        } else {
+            galleryState.imagesToBeDeleted.map { it.remoteImagePath }.forEach {
+                storage.child(it).delete()
+            }
         }
     }
 

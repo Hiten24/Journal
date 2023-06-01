@@ -209,7 +209,9 @@ fun NavGraphBuilder.writeRoute(onBackPressed: () -> Unit) {
                 Log.d("writeViewModel", "writeRoute: URI: $it")
                 viewModel.addImage(image = it, imageType = type)
             },
-            onImageDeleteClicked = {}
+            onImageDeleteClicked = {
+                galleryState.removeImage(it)
+            }
         )
     }
 }
