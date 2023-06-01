@@ -22,8 +22,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var imageToUploadDao: ImageToUploadDao
+//    @Inject
+//    lateinit var imageToUploadDao: ImageToUploadDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        cleanupCheck(scope = lifecycleScope, imageToUploadDao = imageToUploadDao)
+//        cleanupCheck(scope = lifecycleScope, imageToUploadDao = imageToUploadDao)
     }
 }
 

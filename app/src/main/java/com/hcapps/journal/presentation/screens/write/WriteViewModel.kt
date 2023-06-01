@@ -37,7 +37,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WriteViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val imageToUploadDao: ImageToUploadDao
+//    private val imageToUploadDao: ImageToUploadDao
 ): ViewModel() {
 
     val galleryState = GalleryState()
@@ -211,7 +211,7 @@ class WriteViewModel @Inject constructor(
             val imagePath = storage.child(galleryImage.remoteImagePath)
             imagePath.putFile(galleryImage.image)
                 .addOnProgressListener {
-                    val sessionUri = it.uploadSessionUri
+                    /*val sessionUri = it.uploadSessionUri
                     if (sessionUri != null) {
                         viewModelScope.launch(Dispatchers.IO) {
                             imageToUploadDao.addImageToUpload(
@@ -222,7 +222,7 @@ class WriteViewModel @Inject constructor(
                                 )
                             )
                         }
-                    }
+                    }*/
                 }
         }
     }
