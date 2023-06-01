@@ -6,11 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.FirebaseApp
-import com.hcapps.journal.data.database.ImageToUploadDao
-import com.hcapps.journal.navigation.Screen
 import com.hcapps.journal.navigation.SetupNavGraph
-import com.hcapps.journal.ui.theme.JournalTheme
-import com.hcapps.journal.util.Constants.APP_ID
+import com.hcapps.mongo.database.ImageToUploadDao
+import com.hcapps.ui.theme.JournalTheme
+import com.hcapps.util.Constants.APP_ID
+import com.hcapps.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.CoroutineScope
