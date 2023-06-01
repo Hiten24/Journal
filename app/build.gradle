@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace 'com.hcapps.journal'
-    compileSdk 33
+    compileSdk ProjectConfig.compileSdk
 
     defaultConfig {
         applicationId "com.hcapps.journal"
-        minSdk 24
-        targetSdk 33
+        minSdk ProjectConfig.minSdk
+        targetSdk ProjectConfig.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -55,7 +55,7 @@ android {
         coreLibraryDesugaringEnabled true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.0'
+        kotlinCompilerExtensionVersion ProjectConfig.extensionVersion
     }
     packagingOptions {
         resources {
@@ -86,7 +86,7 @@ dependencies {
     implementation "androidx.compose.material3:material3:1.1.0"
 
     // Compose Navigation
-    implementation "androidx.navigation:navigation-compose:2.5.3"
+    implementation libs.navigation.compose
 
     // Firebase
     implementation 'com.google.firebase:firebase-auth-ktx:22.0.0'
