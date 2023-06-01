@@ -2,8 +2,8 @@ package com.hcapps.mongo.repository
 
 import com.hcapps.util.model.Journal
 import com.hcapps.util.model.RequestState
-import io.realm.kotlin.types.ObjectId
 import kotlinx.coroutines.flow.Flow
+import org.mongodb.kbson.ObjectId
 import java.time.LocalDate
 import java.time.ZonedDateTime
 

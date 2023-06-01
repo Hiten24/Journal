@@ -22,12 +22,12 @@ import com.hcapps.util.model.Mood
 import com.hcapps.util.model.RequestState
 import com.hcapps.util.toRealmInstant
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.realm.kotlin.types.ObjectId
 import io.realm.kotlin.types.RealmInstant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.mongodb.kbson.ObjectId
 import java.time.ZonedDateTime
 import javax.inject.Inject
 
@@ -57,7 +57,7 @@ class WriteViewModel @Inject constructor(
     private fun fetchSelectedJournal() {
         if (uiState.selectedJournalId != null) {
             viewModelScope.launch(Dispatchers.Main) {
-                MongoDB.getSelectedJournal(journalId = ObjectId.from(uiState.selectedJournalId!!))
+                MongoDB.getSelectedJournal(journalId = ObjectId.invoke(uiState.selectedJournalId!!))
                     .catch { emit(RequestState.Error(Exception("Journal is already deleted."))) }
                     .collect { journal ->
                         if (journal is RequestState.Success) {
@@ -148,7 +148,7 @@ class WriteViewModel @Inject constructor(
         onError: (String) -> Unit
     ) {
         val result = MongoDB.updateJournal(journal = journal.apply {
-            _id = ObjectId.Companion.from(uiState.selectedJournalId!!)
+            _id = ObjectId.invoke(uiState.selectedJournalId!!)
             date = if (uiState.updatedDateTime != null) {
                 uiState.updatedDateTime!!
             } else {
@@ -174,7 +174,7 @@ class WriteViewModel @Inject constructor(
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             if (uiState.selectedJournalId != null) {
-                when (val result = MongoDB.deleteJournal(id = ObjectId.from(uiState.selectedJournalId!!))) {
+                when (val result = MongoDB.deleteJournal(id = ObjectId.invoke(uiState.selectedJournalId!!))) {
                     is RequestState.Success -> {
                         withContext(Dispatchers.Main) {
                             uiState.selectedJournal?.let { deleteImageFromFirebase(images = it.images) }

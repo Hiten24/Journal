@@ -85,7 +85,7 @@ fun JournalHolder(journal: Journal, onClick: (String) -> Unit) {
             .clickable(
                 indication = null,
                 interactionSource = remember { MutableInteractionSource() }
-            ) { onClick(journal._id.toString()) }
+            ) { onClick(journal._id.toHexString()) }
     ) {
         Spacer(modifier = Modifier.width(14.dp))
         Surface(
