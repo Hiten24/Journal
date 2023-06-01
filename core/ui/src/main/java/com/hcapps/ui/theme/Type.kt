@@ -1,4 +1,4 @@
-package com.hcapps.journal.ui.theme
+package com.hcapps.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

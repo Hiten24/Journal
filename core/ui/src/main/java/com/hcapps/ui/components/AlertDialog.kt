@@ -1,4 +1,4 @@
-package com.hcapps.journal.presentation.components
+package com.hcapps.ui.components
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button

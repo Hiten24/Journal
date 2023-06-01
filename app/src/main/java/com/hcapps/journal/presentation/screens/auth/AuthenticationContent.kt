@@ -17,7 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.hcapps.journal.R
-import com.hcapps.journal.presentation.components.GoogleButton
+import com.hcapps.ui.components.GoogleButton
 
 @Composable
 fun AuthenticationContent(

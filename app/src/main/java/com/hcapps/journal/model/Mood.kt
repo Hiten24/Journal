@@ -2,22 +2,22 @@ package com.hcapps.journal.model
 
 import androidx.compose.ui.graphics.Color
 import com.hcapps.journal.R
-import com.hcapps.journal.ui.theme.AngryColor
-import com.hcapps.journal.ui.theme.AwfulColor
-import com.hcapps.journal.ui.theme.BoredColor
-import com.hcapps.journal.ui.theme.CalmColor
-import com.hcapps.journal.ui.theme.DepressedColor
-import com.hcapps.journal.ui.theme.DisappointedColor
-import com.hcapps.journal.ui.theme.HappyColor
-import com.hcapps.journal.ui.theme.HumorousColor
-import com.hcapps.journal.ui.theme.LonelyColor
-import com.hcapps.journal.ui.theme.MysteriousColor
-import com.hcapps.journal.ui.theme.NeutralColor
-import com.hcapps.journal.ui.theme.RomanticColor
-import com.hcapps.journal.ui.theme.ShamefulColor
-import com.hcapps.journal.ui.theme.SurprisedColor
-import com.hcapps.journal.ui.theme.SuspiciousColor
-import com.hcapps.journal.ui.theme.TenseColor
+import com.hcapps.ui.theme.AngryColor
+import com.hcapps.ui.theme.AwfulColor
+import com.hcapps.ui.theme.BoredColor
+import com.hcapps.ui.theme.CalmColor
+import com.hcapps.ui.theme.DepressedColor
+import com.hcapps.ui.theme.DisappointedColor
+import com.hcapps.ui.theme.HappyColor
+import com.hcapps.ui.theme.HumorousColor
+import com.hcapps.ui.theme.LonelyColor
+import com.hcapps.ui.theme.MysteriousColor
+import com.hcapps.ui.theme.NeutralColor
+import com.hcapps.ui.theme.RomanticColor
+import com.hcapps.ui.theme.ShamefulColor
+import com.hcapps.ui.theme.SurprisedColor
+import com.hcapps.ui.theme.SuspiciousColor
+import com.hcapps.ui.theme.TenseColor
 
 enum class Mood(
     val icon: Int,

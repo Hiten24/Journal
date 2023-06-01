@@ -1,4 +1,4 @@
-package com.hcapps.journal.presentation.components
+package com.hcapps.ui.components
 
 import android.net.Uri
 import android.widget.Toast
@@ -43,9 +43,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.hcapps.journal.model.Journal
 import com.hcapps.journal.model.Mood
-import com.hcapps.journal.ui.theme.Elevation
 import com.hcapps.journal.util.fetchImagesFromFirebase
 import com.hcapps.journal.util.toInstant
+import com.hcapps.ui.theme.Elevation
 import io.realm.kotlin.ext.realmListOf
 import java.text.SimpleDateFormat
 import java.time.Instant

@@ -1,4 +1,4 @@
-package com.hcapps.journal.presentation.components
+package com.hcapps.ui.components
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
@@ -32,7 +32,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.hcapps.journal.R
+import com.hcapps.ui.R
 
 @Composable
 fun GoogleButton(

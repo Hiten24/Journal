@@ -43,7 +43,7 @@ import com.hcapps.journal.model.GalleryImage
 import com.hcapps.journal.model.GalleryState
 import com.hcapps.journal.model.Journal
 import com.hcapps.journal.model.Mood
-import com.hcapps.journal.presentation.components.GalleryUploader
+import com.hcapps.ui.components.GalleryUploader
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 

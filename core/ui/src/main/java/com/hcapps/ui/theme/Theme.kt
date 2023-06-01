@@ -1,4 +1,4 @@
-package com.hcapps.journal.ui.theme
+package com.hcapps.ui.theme
 
 import android.app.Activity
 import android.os.Build

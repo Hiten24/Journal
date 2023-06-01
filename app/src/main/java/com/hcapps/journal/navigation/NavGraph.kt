@@ -25,7 +25,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.hcapps.journal.data.repository.MongoDB
 import com.hcapps.journal.model.Mood
-import com.hcapps.journal.presentation.components.DisplayAlterDialog
+import com.hcapps.ui.components.DisplayAlterDialog
 import com.hcapps.journal.presentation.screens.auth.AuthenticationScreen
 import com.hcapps.journal.presentation.screens.auth.AuthenticationViewModel
 import com.hcapps.journal.presentation.screens.home.HomeScreen

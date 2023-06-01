@@ -1,4 +1,4 @@
-package com.hcapps.journal.model
+package com.hcapps.ui
 
 import android.net.Uri
 import androidx.compose.runtime.Composable

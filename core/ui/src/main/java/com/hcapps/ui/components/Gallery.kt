@@ -1,4 +1,4 @@
-package com.hcapps.journal.presentation.components
+package com.hcapps.ui.components
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -35,9 +35,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.hcapps.journal.model.GalleryImage
-import com.hcapps.journal.model.GalleryState
-import com.hcapps.journal.ui.theme.Elevation
+import com.hcapps.ui.GalleryImage
+import com.hcapps.ui.GalleryState
+import com.hcapps.ui.theme.Elevation
 import java.lang.Integer.max
 
 @Composable
