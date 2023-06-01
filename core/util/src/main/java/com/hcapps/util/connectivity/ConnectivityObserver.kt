@@ -1,4 +1,4 @@
-package com.hcapps.journal.connectivity
+package com.hcapps.util.connectivity
 
 import kotlinx.coroutines.flow.Flow
 

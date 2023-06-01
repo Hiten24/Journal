@@ -41,8 +41,8 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.hcapps.journal.model.GalleryImage
 import com.hcapps.journal.model.GalleryState
-import com.hcapps.journal.model.Journal
-import com.hcapps.journal.model.Mood
+import com.hcapps.util.model.Journal
+import com.hcapps.util.model.Mood
 import com.hcapps.ui.components.GalleryUploader
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch

@@ -136,5 +136,6 @@ dependencies {
     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.0.3"
 
     implementation(project(":core:ui"))
+    implementation(project(":core:util"))
 
 }

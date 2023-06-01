@@ -1,7 +1,6 @@
-package com.hcapps.journal.model
+package com.hcapps.util.model
 
 import androidx.compose.ui.graphics.Color
-import com.hcapps.journal.R
 import com.hcapps.ui.theme.AngryColor
 import com.hcapps.ui.theme.AwfulColor
 import com.hcapps.ui.theme.BoredColor
@@ -18,6 +17,7 @@ import com.hcapps.ui.theme.ShamefulColor
 import com.hcapps.ui.theme.SurprisedColor
 import com.hcapps.ui.theme.SuspiciousColor
 import com.hcapps.ui.theme.TenseColor
+import com.hcapps.util.R
 
 enum class Mood(
     val icon: Int,

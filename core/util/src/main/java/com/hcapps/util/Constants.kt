@@ -1,4 +1,4 @@
-package com.hcapps.journal.util
+package com.hcapps.util
 
 object Constants {
 

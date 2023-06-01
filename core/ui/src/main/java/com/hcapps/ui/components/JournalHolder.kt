@@ -41,11 +41,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.hcapps.journal.model.Journal
-import com.hcapps.journal.model.Mood
-import com.hcapps.journal.util.fetchImagesFromFirebase
-import com.hcapps.journal.util.toInstant
 import com.hcapps.ui.theme.Elevation
+import com.hcapps.util.fetchImagesFromFirebase
+import com.hcapps.util.model.Journal
+import com.hcapps.util.model.Mood
+import com.hcapps.util.toInstant
 import io.realm.kotlin.ext.realmListOf
 import java.text.SimpleDateFormat
 import java.time.Instant

@@ -1,4 +1,4 @@
-package com.hcapps.journal.util
+package com.hcapps.util
 
 import android.net.Uri
 import android.util.Log

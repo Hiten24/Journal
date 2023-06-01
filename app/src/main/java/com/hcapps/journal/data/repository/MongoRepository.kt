@@ -1,7 +1,7 @@
 package com.hcapps.journal.data.repository
 
-import com.hcapps.journal.model.Journal
-import com.hcapps.journal.model.RequestState
+import com.hcapps.util.model.Journal
+import com.hcapps.util.model.RequestState
 import io.realm.kotlin.types.ObjectId
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate

@@ -1,4 +1,4 @@
-package com.hcapps.journal.model
+package com.hcapps.util.model
 
 sealed class RequestState<out T> {
     object Idle: RequestState<Nothing>()

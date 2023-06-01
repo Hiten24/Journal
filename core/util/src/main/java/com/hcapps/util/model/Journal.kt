@@ -1,6 +1,6 @@
-package com.hcapps.journal.model
+package com.hcapps.util.model
 
-import com.hcapps.journal.util.toRealmInstant
+import com.hcapps.util.toRealmInstant
 import io.realm.kotlin.ext.realmListOf
 import io.realm.kotlin.types.ObjectId
 import io.realm.kotlin.types.RealmInstant

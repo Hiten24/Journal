@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import com.hcapps.journal.R
 import com.hcapps.journal.data.repository.Journals
-import com.hcapps.journal.model.RequestState
+import com.hcapps.util.model.RequestState
 import java.time.ZonedDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
