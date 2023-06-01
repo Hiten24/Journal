@@ -132,6 +132,9 @@ fun NavGraphBuilder.homeRoute(
             onMenuClicked = {
                 scope.launch { drawerState.open() }
             },
+            dateIsSelected = viewModel.dateIsSelected,
+            onDateSelected = { viewModel.getJournals(it) },
+            onDateReset = { viewModel.getJournals() },
             navigateToWrite = navigateToWrite,
             drawerState = drawerState,
             onSignOutClicked = {

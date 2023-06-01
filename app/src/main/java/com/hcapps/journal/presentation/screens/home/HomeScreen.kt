@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import com.hcapps.journal.R
 import com.hcapps.journal.data.repository.Journals
 import com.hcapps.journal.model.RequestState
+import java.time.ZonedDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -48,6 +49,9 @@ fun HomeScreen(
     journals: Journals,
     drawerState: DrawerState,
     onMenuClicked: () -> Unit,
+    dateIsSelected: Boolean,
+    onDateSelected: (ZonedDateTime) -> Unit,
+    onDateReset: () -> Unit,
     navigateToWrite: () -> Unit,
     onSignOutClicked: () -> Unit,
     onDeleteAllClicked: () -> Unit,
@@ -62,7 +66,10 @@ fun HomeScreen(
             topBar = {
                 HomeTopBar(
                     scrollBehavior = scrollBehavior,
-                    onMenuClicked = onMenuClicked
+                    onMenuClicked = onMenuClicked,
+                    dateIsSelected = dateIsSelected,
+                    onDateSelected = onDateSelected,
+                    onDateReset = onDateReset
                 )
             },
             floatingActionButton = {
