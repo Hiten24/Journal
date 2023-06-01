@@ -1,4 +1,4 @@
-package com.hcapps.journal.presentation.screens.write
+package com.hcapps.write
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

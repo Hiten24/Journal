@@ -1,4 +1,4 @@
-package com.hcapps.journal.presentation.screens.write
+package com.hcapps.write
 
 import android.net.Uri
 import android.util.Log

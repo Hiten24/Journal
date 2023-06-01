@@ -1,4 +1,4 @@
-package com.hcapps.journal.presentation.screens.write
+package com.hcapps.write
 
 import android.annotation.SuppressLint
 import android.net.Uri
