@@ -1,4 +1,4 @@
-package com.hcapps.journal.presentation.screens.home
+package com.hcapps.home
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close

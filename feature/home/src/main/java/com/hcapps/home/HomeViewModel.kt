@@ -1,4 +1,4 @@
-package com.hcapps.journal.presentation.screens.home
+package com.hcapps.home
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue

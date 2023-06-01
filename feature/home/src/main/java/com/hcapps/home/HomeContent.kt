@@ -1,4 +1,4 @@
-package com.hcapps.journal.presentation.screens.home
+package com.hcapps.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
