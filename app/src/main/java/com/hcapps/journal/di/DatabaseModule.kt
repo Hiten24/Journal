@@ -2,6 +2,7 @@ package com.hcapps.journal.di
 
 import android.content.Context
 import androidx.room.Room
+import com.hcapps.journal.connectivity.NetworkConnectivityObserver
 import com.hcapps.journal.data.database.ImageDatabase
 import com.hcapps.journal.data.database.ImageToUploadDao
 import com.hcapps.journal.data.database.entity.ImageToUpload
@@ -32,5 +33,11 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideImageToUploadDao(database: ImageDatabase): ImageToUploadDao = database.imageToUploadDao()
+
+    @Singleton
+    @Provides
+    fun provideNetworkConnectivityObserver(
+        @ApplicationContext context: Context
+    ) = NetworkConnectivityObserver(context = context)
 
 }

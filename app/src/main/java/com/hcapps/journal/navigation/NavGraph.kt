@@ -120,10 +120,12 @@ fun NavGraphBuilder.homeRoute(
     navigateToAuth: () -> Unit,
 ) {
     composable(route = Screen.Home.route) {
-        val viewModel: HomeViewModel = viewModel()
+        val viewModel: HomeViewModel = hiltViewModel()
         val journals by viewModel.journals
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
         var signOutDialogOpened by remember { mutableStateOf(false) }
+        var deleteAllDialogOpened by remember { mutableStateOf(false) }
+        val context = LocalContext.current
         val scope = rememberCoroutineScope()
         HomeScreen(
             journals = journals,
@@ -134,6 +136,9 @@ fun NavGraphBuilder.homeRoute(
             drawerState = drawerState,
             onSignOutClicked = {
                 signOutDialogOpened = true
+            },
+            onDeleteAllClicked = {
+                deleteAllDialogOpened = true
             },
             navigateToWriteWithArgs = navigateToWriteWithArgs
         )
@@ -154,6 +159,37 @@ fun NavGraphBuilder.homeRoute(
                         navigateToAuth()
                     }
                 }
+            }
+        )
+
+        DisplayAlterDialog(
+            title = "Delete All Journals",
+            message = "Are you sure you want to Permanently delete delete all journals?",
+            dialogOpened = deleteAllDialogOpened,
+            onCloseDialog = { deleteAllDialogOpened = false },
+            onYesClicked = {
+                viewModel.deleteAllJournals(
+                    onSuccess = {
+                        Toast.makeText(
+                            context,
+                            "",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        scope.launch {
+                            drawerState.close()
+                        }
+                    },
+                    onError = {
+                        Toast.makeText(
+                            context,
+                            if (it.message == "No Internet Connection.") "We need an Internet Connection for this operation" else it.message,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        scope.launch {
+                            drawerState.close()
+                        }
+                    }
+                )
             }
         )
 

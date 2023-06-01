@@ -22,4 +22,6 @@ interface MongoRepository {
 
     suspend fun deleteJournal(id: ObjectId): RequestState<Journal>
 
+    suspend fun deleteAllJournals(): RequestState<Boolean>
+
 }
