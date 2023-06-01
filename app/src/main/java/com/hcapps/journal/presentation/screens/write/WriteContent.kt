@@ -39,11 +39,11 @@ import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
-import com.hcapps.journal.model.GalleryImage
-import com.hcapps.journal.model.GalleryState
+import com.hcapps.ui.GalleryImage
+import com.hcapps.ui.GalleryState
+import com.hcapps.util.GalleryUploader
 import com.hcapps.util.model.Journal
 import com.hcapps.util.model.Mood
-import com.hcapps.ui.components.GalleryUploader
 import io.realm.kotlin.ext.toRealmList
 import kotlinx.coroutines.launch
 

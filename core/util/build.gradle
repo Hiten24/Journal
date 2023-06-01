@@ -21,9 +21,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+    kotlin {
+        jvmToolchain(8)
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -31,22 +30,26 @@ android {
     buildFeatures {
         compose true
     }
-    compileOptions {
-        coreLibraryDesugaringEnabled true
-    }
     composeOptions {
         kotlinCompilerExtensionVersion ProjectConfig.extensionVersion
+        kotlinCompilerVersion
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
     }
 }
 
 dependencies {
+    implementation libs.compose.tooling.preview
     implementation libs.core.ktx
     implementation libs.firebase.storage
     implementation libs.realm.sync
     implementation libs.coroutines.core
-    implementation libs.desugar.jdk
     implementation libs.activity.compose
     implementation libs.material3.compose
+    implementation libs.coil
 
     implementation(project(":core:ui"))
 }

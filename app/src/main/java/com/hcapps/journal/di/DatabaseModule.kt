@@ -2,10 +2,10 @@ package com.hcapps.journal.di
 
 import android.content.Context
 import androidx.room.Room
+import com.hcapps.mongo.database.ImageDatabase
+import com.hcapps.mongo.database.ImageToUploadDao
+import com.hcapps.util.Constants.IMAGES_DATABASE
 import com.hcapps.util.connectivity.NetworkConnectivityObserver
-import com.hcapps.journal.data.database.ImageDatabase
-import com.hcapps.journal.data.database.ImageToUploadDao
-import com.hcapps.journal.util.Constants.IMAGES_DATABASE
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -8,10 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
+import com.hcapps.mongo.repository.Journals
+import com.hcapps.mongo.repository.MongoDB
 import com.hcapps.util.connectivity.ConnectivityObserver
 import com.hcapps.util.connectivity.NetworkConnectivityObserver
-import com.hcapps.journal.data.repository.Journals
-import com.hcapps.journal.data.repository.MongoDB
 import com.hcapps.util.model.RequestState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

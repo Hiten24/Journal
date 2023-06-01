@@ -24,9 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import com.hcapps.util.model.Journal
 import com.hcapps.ui.components.DisplayAlterDialog
-import com.hcapps.journal.util.toInstant
+import com.hcapps.util.model.Journal
+import com.hcapps.util.toInstant
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
 import com.maxkeppeler.sheets.calendar.models.CalendarConfig

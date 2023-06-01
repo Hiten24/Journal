@@ -34,8 +34,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.PagerState
-import com.hcapps.journal.model.GalleryImage
-import com.hcapps.journal.model.GalleryState
+import com.hcapps.ui.GalleryImage
+import com.hcapps.ui.GalleryState
 import com.hcapps.util.model.Journal
 import com.hcapps.util.model.Mood
 import java.time.ZonedDateTime

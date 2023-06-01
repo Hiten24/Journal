@@ -14,7 +14,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -23,18 +22,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
-import com.hcapps.journal.data.repository.MongoDB
-import com.hcapps.util.model.Mood
-import com.hcapps.ui.components.DisplayAlterDialog
-import com.hcapps.journal.presentation.screens.auth.AuthenticationScreen
-import com.hcapps.journal.presentation.screens.auth.AuthenticationViewModel
+import com.hcapps.auth.navigation.authenticationRoute
 import com.hcapps.journal.presentation.screens.home.HomeScreen
 import com.hcapps.journal.presentation.screens.home.HomeViewModel
 import com.hcapps.journal.presentation.screens.write.WriteScreen
 import com.hcapps.journal.presentation.screens.write.WriteViewModel
-import com.hcapps.journal.util.Constants.APP_ID
-import com.hcapps.journal.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
-import com.stevdzasan.onetap.rememberOneTapSignInState
+import com.hcapps.mongo.repository.MongoDB
+import com.hcapps.ui.components.DisplayAlterDialog
+import com.hcapps.util.Constants.APP_ID
+import com.hcapps.util.Constants.WRITE_SCREEN_ARGUMENT_KEY
+import com.hcapps.util.Screen
+import com.hcapps.util.model.Mood
 import io.realm.kotlin.mongodb.App
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -67,50 +65,6 @@ fun SetupNavGraph(startDestination: String, navController: NavHostController) {
                 navController.popBackStack()
             }
         )
-    }
-}
-
-fun NavGraphBuilder.authenticationRoute(navigateToHome: () -> Unit) {
-    composable(route = Screen.Authentication.route) {
-
-        val viewModel: AuthenticationViewModel = viewModel()
-        val authenticated by viewModel.authenticated
-        val loadingState by viewModel.loadingState
-        val oneTapState = rememberOneTapSignInState()
-        val context = LocalContext.current
-
-        AuthenticationScreen(
-            authenticated = authenticated,
-            loadingState = loadingState,
-            oneTapSignInState = oneTapState,
-            onSuccessfulFirebaseSignIn = { tokenId ->
-                viewModel.signInWithMongoAtlas(
-                    tokenId,
-                    onSuccess = {
-                        Toast.makeText(context, "Successfully Authenticated!", Toast.LENGTH_SHORT).show()
-                        viewModel.setLoading(false)
-                    },
-                    onError = { exception ->
-                        Toast.makeText(context, exception.message, Toast.LENGTH_SHORT).show()
-                        viewModel.setLoading(false)
-                    }
-                )
-            },
-            onFailedFirebaseSignIn = {
-                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                viewModel.setLoading(false)
-            },
-            onDialogDismissed = { message ->
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                viewModel.setLoading(false)
-            },
-            onButtonClicked = {
-                oneTapState.open()
-                viewModel.setLoading(true)
-            },
-            navigateToHome = navigateToHome
-        )
-
     }
 }
 
