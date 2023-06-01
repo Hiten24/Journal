@@ -179,6 +179,7 @@ class WriteViewModel @Inject constructor(
                 when (val result = MongoDB.deleteJournal(id = ObjectId.from(uiState.selectedJournalId!!))) {
                     is RequestState.Success -> {
                         withContext(Dispatchers.Main) {
+                            uiState.selectedJournal?.let { deleteImageFromFirebase(images = it.images) }
                             onSuccess()
                         }
                     }
@@ -224,6 +225,13 @@ class WriteViewModel @Inject constructor(
                         }
                     }*/
                 }
+        }
+    }
+
+    private fun deleteImageFromFirebase(images: List<String>) {
+        val storage = FirebaseStorage.getInstance().reference
+        images.forEach { remotePath ->
+            storage.child(remotePath).delete()
         }
     }
 
