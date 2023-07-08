@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
@@ -150,6 +151,7 @@ fun JournalHeader(moodName: String, time: Instant) {
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
+                modifier = Modifier.size(36.dp),
                 painter = painterResource(id = mood.icon),
                 contentDescription = "Mood Icon"
             )
