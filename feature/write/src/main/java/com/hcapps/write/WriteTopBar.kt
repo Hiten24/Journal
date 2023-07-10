@@ -1,12 +1,21 @@
 package com.hcapps.write
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -14,18 +23,23 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.hcapps.ui.components.DisplayAlterDialog
 import com.hcapps.util.model.Journal
+import com.hcapps.util.model.Mood
 import com.hcapps.util.toInstant
 import com.maxkeppeker.sheets.core.models.base.rememberSheetState
 import com.maxkeppeler.sheets.calendar.CalendarDialog
@@ -53,6 +67,7 @@ fun WriteTopBar(
 ) {
     val dateDialog = rememberSheetState()
     val timeDialog = rememberSheetState()
+    var moodDialog by remember { mutableStateOf(false) }
 
     var currentDate by remember { mutableStateOf(LocalDate.now()) }
     var currentTime by remember { mutableStateOf(LocalTime.now()) }
@@ -87,7 +102,7 @@ fun WriteTopBar(
             }
         },
         title = {
-            Column {
+            Column(Modifier.clickable { moodDialog = true }) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     text = moodName(),
@@ -170,7 +185,40 @@ fun WriteTopBar(
             )
         }
     )
-    
+
+    if (moodDialog) {
+        AlertDialog(
+            onDismissRequest = { moodDialog = false },
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.surface, Shapes().small)
+                .padding(16.dp)
+        ) {
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(4),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                items(Mood.values()) { mood ->
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Image(
+                            painter = painterResource(id = mood.icon),
+                            contentDescription = "Mood Emoji"
+                        )
+                        /*Text(
+                            text = mood.name,
+                            fontSize = 11.sp,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 1
+                        )*/
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 @Composable
