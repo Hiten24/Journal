@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Journal</string>
-    <string name="auth_title">Welcome back</string>
-    <string name="auth_subtitle">Please sign in to continue.</string>
+    <string name="auth_title">Write, Reflect, Grow</string>
+    <string name="auth_subtitle">Sign in to continue your journaling journey</string>
 </resources>

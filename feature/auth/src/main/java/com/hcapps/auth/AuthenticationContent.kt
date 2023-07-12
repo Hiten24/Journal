@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.hcapps.ui.components.GoogleButton
 
@@ -44,15 +45,17 @@ fun AuthenticationContent(
                     painter = painterResource(id = R.drawable.journal_illustration),
                     contentDescription = "Google logo"
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(32.dp))
                 Text(
-                    text = stringResource(R.string.auth_title),
-                    fontSize = MaterialTheme.typography.titleLarge.fontSize
+                    text = stringResource(id = R.string.auth_title),
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Medium
                 )
+                Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
                     text = stringResource(R.string.auth_subtitle),
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize
+                    fontSize = MaterialTheme.typography.bodyLarge.fontSize
                 )
             }
             Column(
