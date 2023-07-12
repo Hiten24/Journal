@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,8 +40,8 @@ fun AuthenticationContent(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Image(
-                    modifier = Modifier.size(120.dp),
-                    painter = painterResource(id = R.drawable.journal_logo),
+//                    modifier = Modifier.size(120.dp),
+                    painter = painterResource(id = R.drawable.journal_illustration),
                     contentDescription = "Google logo"
                 )
                 Spacer(modifier = Modifier.height(20.dp))
