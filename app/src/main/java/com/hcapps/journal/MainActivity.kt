@@ -7,15 +7,11 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.FirebaseApp
 import com.hcapps.journal.navigation.SetupNavGraph
-import com.hcapps.mongo.database.ImageToUploadDao
 import com.hcapps.ui.theme.JournalTheme
 import com.hcapps.util.Constants.APP_ID
 import com.hcapps.util.Screen
 import dagger.hilt.android.AndroidEntryPoint
 import io.realm.kotlin.mongodb.App
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -42,7 +38,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private fun cleanupCheck(
+/*private fun cleanupCheck(
     scope: CoroutineScope,
     imageToUploadDao: ImageToUploadDao
 ) {
@@ -54,7 +50,7 @@ private fun cleanupCheck(
             }
         }
     }
-}
+}*/
 
 private fun getStartDestination(): String {
     val user = App.create(APP_ID).currentUser

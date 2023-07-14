@@ -22,7 +22,7 @@ coil = "2.2.2"
 accompanist = "0.27.0"
 date-time-picker = "1.0.2"
 message-bar-compose = "1.0.5"
-one-tap-compose = "1.0.0"
+one-tap-compose = "1.0.3"
 desugar = "1.2.0"
 
 [libraries]
