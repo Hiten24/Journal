@@ -3,7 +3,7 @@ package com.hcapps.util
 object Constants {
 
     const val APP_ID = "journal-nzmxd"
-    const val CLIENT_ID = "220790200313-edkc0jfih19m96li6177pcifcendfi35.apps.googleusercontent.com"
+    const val CLIENT_ID = "220790200313-0mbu64jtctmjtv1gm83el683ianc4h23.apps.googleusercontent.com"
 
     const val WRITE_SCREEN_ARGUMENT_KEY = "journal_id"
 

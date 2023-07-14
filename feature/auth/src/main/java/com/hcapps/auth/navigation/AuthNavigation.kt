@@ -1,5 +1,6 @@
 package com.hcapps.auth.navigation
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
@@ -32,6 +33,7 @@ fun NavGraphBuilder.authenticationRoute(navigateToHome: () -> Unit) {
                     },
                     onError = { exception ->
                         Toast.makeText(context, exception.message, Toast.LENGTH_SHORT).show()
+                        Log.e("google_auth", "authenticationRoute: ${exception.message}", )
                         viewModel.setLoading(false)
                     }
                 )

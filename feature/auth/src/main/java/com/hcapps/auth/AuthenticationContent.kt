@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.hcapps.ui.components.GoogleButton
 
@@ -55,7 +56,8 @@ fun AuthenticationContent(
                 Text(
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
                     text = stringResource(R.string.auth_subtitle),
-                    fontSize = MaterialTheme.typography.bodyLarge.fontSize
+                    fontSize = MaterialTheme.typography.bodyLarge.fontSize,
+                    textAlign = TextAlign.Center
                 )
             }
             Column(

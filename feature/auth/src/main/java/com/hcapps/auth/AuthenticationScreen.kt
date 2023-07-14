@@ -1,6 +1,7 @@
 package com.hcapps.auth
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -52,6 +53,8 @@ fun AuthenticationScreen(
                     if (task.isSuccessful) {
                         onSuccessfulFirebaseSignIn.invoke(tokenId)
                     } else {
+                        Log.e("one_tap_sing_in_with_google_log", "OneTapSignInWithGoogle: ${task.exception?.message}", )
+                        task.exception?.printStackTrace()
                         task.exception?.let { it -> onFailedFirebaseSignIn(it) }
                     }
                 }
