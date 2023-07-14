@@ -63,6 +63,14 @@ android {
         }
     }
 
+    buildTypes.all {
+        def keyPropertiesFile = rootProject.file("key.properties")
+        def keyProperties = new Properties()
+        keyProperties.load(new FileInputStream(keyPropertiesFile))
+        buildConfigField "String", "appId", keyProperties["appId"]
+        buildConfigField "String", "clientId", keyProperties["clientId"]
+    }
+
     kotlin {
         jvmToolchain(8)
     }
