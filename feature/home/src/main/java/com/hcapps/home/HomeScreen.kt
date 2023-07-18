@@ -57,7 +57,7 @@ fun HomeScreen(
     navigateToWriteWithArgs: (String) -> Unit
 ) {
     var padding by remember { mutableStateOf(PaddingValues()) }
-    var scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
     NavigationDrawer(drawerState = drawerState, onSignOutClicked = onSignOutClicked, onDeleteAllClicked = onDeleteAllClicked) {
         Scaffold(
@@ -128,11 +128,11 @@ fun NavigationDrawer(
                 NavigationDrawerItem(
                     label = {
                         Row(modifier = Modifier.padding(horizontal = 12.dp)) {
-                            Icon(
+                            /*Icon(
                                 painter = painterResource(id = com.hcapps.ui.R.drawable.google_logo),
                                 contentDescription = "Google Logo",
                                 tint = MaterialTheme.colorScheme.onSurface
-                            )
+                            )*/
                             Spacer(modifier = Modifier.width(12.dp))
                             Text(text = "Sign Out", color = MaterialTheme.colorScheme.onSurface)
                         }

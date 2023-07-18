@@ -56,19 +56,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-    }
-
-    buildTypes.all {
-        def keyPropertiesFile = rootProject.file("key.properties")
-        def keyProperties = new Properties()
-        keyProperties.load(new FileInputStream(keyPropertiesFile))
-        buildConfigField "String", "appId", keyProperties["appId"]
-        buildConfigField "String", "clientId", keyProperties["clientId"]
     }
 
     kotlin {
