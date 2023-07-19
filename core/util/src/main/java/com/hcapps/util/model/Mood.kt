@@ -41,7 +41,7 @@ enum class Mood(
     ),
     Bored(
         icon = R.drawable.bored,
-        contentColor = Color.Black,
+        contentColor = Color.White,
         containerColor = BoredColor
     ),
     Calm(
@@ -51,7 +51,7 @@ enum class Mood(
     ),
     Depressed(
         icon = R.drawable.depressed,
-        contentColor = Color.Black,
+        contentColor = Color.White,
         containerColor = DepressedColor
     ),
     Disappointed(
@@ -61,7 +61,7 @@ enum class Mood(
     ),
     Humorous(
         icon = R.drawable.humorous,
-        contentColor = Color.Black,
+        contentColor = Color.White,
         containerColor = HumorousColor
     ),
     Lonely(
@@ -71,7 +71,7 @@ enum class Mood(
     ),
     Mysterious(
         icon = R.drawable.mysterious,
-        contentColor = Color.Black,
+        contentColor = Color.White,
         containerColor = MysteriousColor
     ),
     Romantic(
@@ -86,17 +86,17 @@ enum class Mood(
     ),
     Awful(
         icon = R.drawable.awful,
-        contentColor = Color.Black,
+        contentColor = Color.White,
         containerColor = AwfulColor
     ),
     Surprised(
         icon = R.drawable.surprised,
-        contentColor = Color.Black,
+        contentColor = Color.White,
         containerColor = SurprisedColor
     ),
     Suspicious(
         icon = R.drawable.suspicious,
-        contentColor = Color.Black,
+        contentColor = Color.White,
         containerColor = SuspiciousColor
     ),
     Tense(
