@@ -107,7 +107,7 @@ fun JournalHolder(journal: Journal, onClick: (String) -> Unit) {
             tonalElevation = Elevation.Level1,
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
-                JournalHeader(moodName = journal.mood, time = journal.date.toInstant())
+                JournalHeader(moodName = journal.mood, title = journal.title, time = journal.date.toInstant())
                 Text(
                     modifier = Modifier.padding(all = 14.dp),
                     text = journal.description,
@@ -140,7 +140,7 @@ fun JournalHolder(journal: Journal, onClick: (String) -> Unit) {
 }
 
 @Composable
-fun JournalHeader(moodName: String, time: Instant) {
+fun JournalHeader(moodName: String, title: String, time: Instant) {
     val mood by remember { mutableStateOf(Mood.valueOf(moodName)) }
     Row(modifier = Modifier
         .fillMaxWidth()
@@ -149,7 +149,11 @@ fun JournalHeader(moodName: String, time: Instant) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier.weight(1f, fill = false),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Image(
                 modifier = Modifier.size(36.dp),
                 painter = painterResource(id = mood.icon),
@@ -157,16 +161,17 @@ fun JournalHeader(moodName: String, time: Instant) {
             )
             Spacer(modifier = Modifier.width(7.dp))
             Text(
-//                text = mood.name,
-                text = "Test Title",
+                text = title,
                 color = mood.contentColor,
-                style = TextStyle(fontSize = MaterialTheme.typography.bodyMedium.fontSize)
+                style = TextStyle(fontSize = MaterialTheme.typography.bodyMedium.fontSize),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
         Text(
             text = SimpleDateFormat("hh:mm a", Locale.US).format(Date.from(time)),
             color = mood.contentColor,
-            style = TextStyle(fontSize = MaterialTheme.typography.bodyMedium.fontSize)
+            style = TextStyle(fontSize = MaterialTheme.typography.bodyMedium.fontSize),
         )
     }
 }
