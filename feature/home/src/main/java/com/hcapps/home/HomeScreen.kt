@@ -25,7 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.LayoutDirection
 import com.hcapps.mongo.repository.Journals
+import com.hcapps.util.Constants
 import com.hcapps.util.model.RequestState
+import io.realm.kotlin.mongodb.App
 import java.time.ZonedDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,7 +48,12 @@ fun HomeScreen(
     var padding by remember { mutableStateOf(PaddingValues()) }
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
 
-    NavigationDrawer(drawerState = drawerState, onSignOutClicked = onSignOutClicked, onDeleteAllClicked = onDeleteAllClicked) {
+    NavigationDrawer(
+        drawerState = drawerState,
+        onSignOutClicked = onSignOutClicked,
+        onDeleteAllClicked = onDeleteAllClicked,
+        currentUser = App.create(Constants.APP_ID).currentUser
+    ) {
         Scaffold(
             modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
             topBar = {

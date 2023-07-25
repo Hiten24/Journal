@@ -1,12 +1,15 @@
 package com.hcapps.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Info
@@ -21,13 +24,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.hcapps.ui.R
+import io.realm.kotlin.mongodb.User
+import io.realm.kotlin.mongodb.ext.profileAsBsonDocument
 
 data class NavigationItem(
     val icon: ImageVector,
@@ -43,6 +50,7 @@ fun NavigationDrawer(
     drawerState: DrawerState,
     onSignOutClicked: () -> Unit,
     onDeleteAllClicked: () -> Unit,
+    currentUser: User?,
     content: @Composable () -> Unit
 ) {
 
@@ -72,6 +80,7 @@ fun NavigationDrawer(
         drawerState = drawerState,
         gesturesEnabled = drawerState.isOpen,
         drawerContent = {
+            val profileBson = currentUser?.profileAsBsonDocument()
             ModalDrawerSheet(modifier = Modifier.fillMaxWidth(0.8f)) {
                 Text(
                     text = "Journal",
@@ -84,6 +93,23 @@ fun NavigationDrawer(
                     painter = painterResource(id = R.drawable.navigation_drawer_illustration),
                     contentDescription = "App Logo"
                 )
+                
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    AsyncImage(model = profileBson?.getString("picture")?.value, contentDescription = "profile picture", modifier = Modifier.clip(CircleShape))
+                    Column() {
+                        Text(text = profileBson?.getString("name")?.value ?: "", style = MaterialTheme.typography.titleMedium)
+                        Text(text = profileBson?.getString("email")?.value ?: "", style = MaterialTheme.typography.bodyMedium)
+                    }
+                }
+                
+                Spacer(modifier = Modifier.height(16.dp))
+                
                 navigationItem.forEach { item ->
                     NavigationDrawerItem(
                         label = {
