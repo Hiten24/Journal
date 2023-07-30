@@ -1,0 +1,1 @@
+-keep class com.hcapps.mongo.database.entity.* { *; }
