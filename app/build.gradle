@@ -6,6 +6,7 @@ plugins {
     id 'io.realm.kotlin'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
+    id 'kotlinx-serialization'
 }
 
 def keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -30,8 +31,8 @@ android {
         applicationId "com.hcapps.journal"
         minSdk ProjectConfig.minSdk
         targetSdk ProjectConfig.targetSdk
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -81,13 +82,13 @@ android {
         }
     }
 
-    project.ext.versionCodes = ['x86': 0, 'x86_64': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3]
+    /*project.ext.versionCodes = ['x86': 0, 'x86_64': 1, 'armeabi-v7a': 2, 'arm64-v8a': 3]
 
     android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
             output.versionCodeOverride = project.ext.versionCodes.get(output.getFilter(com.android.build.OutputFile.ABI), 0) * 1 + android.defaultConfig.versionCode
         }
-    }
+    }*/
 
     kotlinOptions {
         jvmTarget = '1.8'
